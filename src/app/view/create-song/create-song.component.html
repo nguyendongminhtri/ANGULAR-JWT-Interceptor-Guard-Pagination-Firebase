@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12" style="margin-top: 20px">
+            <mat-card style="margin: 50px 0">
+                <form class="create-song" #f="ngForm" (ngSubmit)="f.form.valid&&ngSubmit()" novalidate>
+                    <mat-error class="alert alert-primary">{{status}}</mat-error>
+                    <mat-form-field style="width: 350px" appearance="outline">
+                        <mat-label>Name Song: </mat-label>
+                        <input matInput name="nameSong" [(ngModel)]="form.nameSong" #nameSong="ngModel" required>
+                        <mat-icon color="accent" matSuffix>music_video</mat-icon>
+                        <mat-error *ngIf="nameSong.hasError('required')">The name song is required!</mat-error>
+                    </mat-form-field><br>
+                    <mat-form-field style="width: 350px" appearance="fill">
+                        <mat-label>Lyrics: </mat-label>
+                        <textarea name="lyrics" matInput [(ngModel)]="form.lyrics" #lyrics="ngModel" required></textarea>
+                        <mat-icon color="accent" matSuffix>queue_music</mat-icon>
+                        <mat-error *ngIf="lyrics.hasError('required')">The lyrics is required!</mat-error>
+                    </mat-form-field><br>
+                    <mat-label>Upload Avatar</mat-label>
+                    <app-upload-file (giveURLtoCreate)="onChangeAvatar($event)"></app-upload-file><br>
+                    <!--                        <div *ngIf="form.avatarSong" style="margin-bottom: 10px; margin-top: 10px">-->
+
+                    <div *ngIf="form.avatarSong">
+                        <img [src]="form.avatarSong" style="width: 300px; height: auto">
+                    </div>
+
+                    <!--                        </div>-->
+                    <mat-label>Upload File</mat-label>
+                    <app-upload-file (giveURLtoCreate)="onChangeFile($event)"></app-upload-file><br>
+                    <div *ngIf="form.mp3Url" style="margin-bottom: 10px; margin-top: 10px">
+                        <audio controls>
+                            <source [src]="form.mp3Url" style="width: 350px; height: auto">
+                        </audio>
+                    </div>
+                    <button mat-stroked-button color="accent" class="mat-button-toggle-group btn-outline-success">Register
+                        <mat-icon color="accent" matSuffix>trending_flat</mat-icon>
+                    </button>
+                </form>
+
+            </mat-card>
+        </div>
+    </div>
+</div>
